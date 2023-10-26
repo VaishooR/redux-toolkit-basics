@@ -42,10 +42,12 @@ export const counterSlice = createSlice({
 	initialState:{value:0},
 	reducers:{
 		increment:(state)=>{state.value += 1},
-		decrement:(state)=>{state.value -= 1}
+		decrement:(state)=>{state.value -= 1},
+		incrementByValue:(state,action)=>{state.countVal+=action.payload}
+		
 	}
 })
-export const {increment,decrement} = counterSlice.actions
+export const {increment,decrement,incrementByValue} = counterSlice.actions
 export default counterSlice.reducer
 
 
@@ -55,7 +57,7 @@ Create Counter.js:
 
 import React,{useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment } from '../redux/counterSlice';
+import { decrement, increment, incrementByValue } from '../redux/counterSlice';
 
 const Counter = () => {
 	// const [count,setCount]=useState(0);
@@ -66,6 +68,7 @@ const Counter = () => {
 		<h1>{count}</h1>
 		<button  onClick={() => dispatch(increment())}>Increase</button>
 		<button onClick={() => dispatch(decrement())}>Decrease</button>
+	        <button onClick={()=>dispatch(incrementByValue(10))}>Increase by Value</button>
 	</div>
   )
 }
